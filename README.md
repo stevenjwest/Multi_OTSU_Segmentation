@@ -1,81 +1,65 @@
-This is an example Maven project implementing an ImageJ 1.x plugin.
+# Multi-OTSU Segmentation
 
-It is intended as an ideal starting point to develop new ImageJ 1.x plugins
-in an IDE of your choice. You can even collaborate with developers using a
-different IDE than you.
 
-* In [Eclipse](http://eclipse.org), for example, it is as simple as
-  _File &#8250; Import... &#8250; Existing Maven Project_.
+**A pre-compiled JAR file of this plugin can be downloaded from the [wiki](https://github.com/stevenjwest/Multi-OTSU-Segmentation/wiki).**
 
-* In [NetBeans](http://netbeans.org), it is even simpler:
-  _File &#8250; Open Project_.
 
-* The same works in [IntelliJ](http://jetbrains.net).
+This is an updated version of the Multi-OTSU Threshold plugin by *Yasunari Tosa*.  It provides an implementation of multi-OTSU segmentation in ImageJ:
 
-* If [jEdit](http://jedit.org) is your preferred IDE, you will need the
-  [Maven Plugin](http://plugins.jedit.org/plugins/?MavenPlugin).
 
-Die-hard command-line developers can use Maven directly by calling `mvn`
-in the project root.
+https://imagej.net/Multi_Otsu_Threshold
 
-However you build the project, in the end you will have the `.jar` file
-(called *artifact* in Maven speak) in the `target/` subdirectory.
 
-To copy the artifact into the correct place, you can call
-`mvn -Dscijava.app.directory=/path/to/ImageJ.app/`.
-This will not only copy your artifact, but also all the dependencies. Restart
-your ImageJ or call *Help &#8250; Refresh Menus* to see your plugin in the menus.
+Implements an algorithm described in the following paper: https://www.iis.sinica.edu.tw/page/jise/2001/200109_01.pdf
 
-Developing plugins in an IDE is convenient, especially for debugging. To
-that end, the plugin contains a `main` method which sets the `plugins.dir`
-system property (so that the plugin is added to the Plugins menu), starts
-ImageJ, loads an image and runs the plugin. See also
-[this page](https://imagej.net/Debugging#Debugging_plugins_in_an_IDE_.28Netbeans.2C_IntelliJ.2C_Eclipse.2C_etc.29)
-for information how ImageJ makes it easier to debug in IDEs.
 
-Since this project is intended as a starting point for your own
-developments, it is in the public domain.
+However, this plugin generates as output:
 
-How to use this project as a starting point
-===========================================
 
-1. Visit [this link](https://github.com/imagej/example-legacy-plugin/generate)
-   to create a new repository in your space using this one as a template.
+* An image of the historgram
 
-2. [Clone your new repository](https://help.github.com/en/articles/cloning-a-repository).
+* A separate output stack for each segmentation level 
 
-3. Edit the `pom.xml` file. Every entry should be pretty self-explanatory.
-   In particular, change
-    1. the *artifactId* (**NOTE**: should contain a '_' character)
-    2. the *groupId*, ideally to a reverse domain name your organization owns
-    3. the *version* (note that you typically want to use a version number
-       ending in *-SNAPSHOT* to mark it as a work in progress rather than a
-       final version)
-    4. the *dependencies* (read how to specify the correct
-       *groupId/artifactId/version* triplet
-       [here](https://imagej.net/Maven#How_to_find_a_dependency.27s_groupId.2FartifactId.2Fversion_.28GAV.29.3F))
-    5. the *developer* information
-    6. the *scm* information
+    + Each image shows the raw pixel values at each segmentation level
+    
+* A log of the numLevels selected and computed threshold values in the greyscale image
 
-4. Remove the `Process_Pixels.java` file and add your own `.java` files
-   to `src/main/java/<package>/` (if you need supporting files -- like icons
-   -- in the resulting `.jar` file, put them into `src/main/resources/`)
 
-5. Edit `src/main/resources/plugins.config`
+This plugin is desirable for high quality segmentation of fluorescent images:
 
-6. Replace the contents of `README.md` with information about your project.
 
-7. Make your initial
-   [commit](https://help.github.com/en/desktop/contributing-to-projects/committing-and-reviewing-changes-to-your-project) and
-   [push the results](https://help.github.com/en/articles/pushing-commits-to-a-remote-repository)!
+* Multi-OTSU should allow for multiple peaks in the image histogram to be included in the segmentation:
 
-### Eclipse: To ensure that Maven copies the plugin to your ImageJ folder
+    + Multiple peaks may represent different intensities of object signals - and standard 2-level OTSU would not capture the multiple peaks in the segmentation.
+    
+        - For example, if the objects are composed of some high intensity fluorescent objects, and a proportion of lower intensity, multi-OTSU can capture the two intensity levels in the segmented portion of the thresholded image, whereas 2-level OTSU would fail.
 
-1. Go to _Run Configurations..._
-2. Choose _Maven Build_
-3. Add the following parameter:
-    - name: `scijava.app.directory`
-    - value: `/path/to/ImageJ.app/`
 
-This ensures that the final `.jar` file will also be copied to
-your ImageJ plugins folder everytime you run the Maven build.
+This plugins output is not suitable for use with StereoMate:
+
+
+* SM Threshold Manager requires that the output of a plugin modifies DIRECTLY the input image data:
+
+    + This is because the image is open in an ImageWindowWithPanel, and direct modification is built into the workflow of the Threshold Manager (to save opening new IWPs all the time!).
+    
+    
+Therefore this plugin has **Re-Formed the Multi-OTSU Threshold ImageJ Plugin to directly modify the input image, for use with StereoMate Threshold Manager Plugin:**
+
+
+
+This implementation has re-formaulated the original Multi-OTSU plugin to:
+
+
+* Select the number of levels, and the Background Level
+    
+    - num of levels will decide how many segmentation levels will be computed
+        
+    - Background Level will decide from what level the Background Signal is considered up to
+        
+* Directly modify the input image to generate a segmented image
+    
+* Not output the histogram, but will still output a log of the data
+    
+* Work on Image Stacks
+
+

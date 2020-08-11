@@ -11,19 +11,25 @@
 		<version>26.0.0</version>
 		<relativePath />
 	</parent>
-
-	<groupId>com.mycompany</groupId>
-	<artifactId>Process_Pixels</artifactId>
+	  
+	<groupId>io.github.stevenjwest</groupId>
+	<artifactId>Multi_OTSU_Segmentation</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 
-	<name>Process Pixels</name>
-	<description>A Maven project implementing an ImageJ 1.x plugin.</description>
-	<url>http://mycompany.com/imagej/process-pixels/</url>
-	<inceptionYear>2012</inceptionYear>
+
+	<name>Multi_OTSU_Segmentation</name>
+
+	<description>An update to the Multi-OTSU Threshold plugin to directly segment the input image.</description>
+
+	<url>https://github.com/stevenjwest/Multi_OTSU_Segmentation</url>
+
+	<inceptionYear>2020</inceptionYear>
+
 	<organization>
-		<name>My Company</name>
-		<url>http://mycompany.com/</url>
+		<name>theNaturalObserver</name>
+		<url>http://www.thenaturalobserver.co.uk/</url>
 	</organization>
+
 	<licenses>
 		<license>
 			<name>Simplified BSD License</name>
@@ -32,10 +38,24 @@
 	</licenses>
 
 	<developers>
+
+	  <developer>
+			<id>ytosa</id>
+			<name>Yasunari Tosa</name>
+			<url>https://imagej.net/plugins/multi-otsu-threshold.html</url>
+			<roles>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+			</roles>
+		</developer>
+	  
 		<developer>
-			<id>ctrueden</id>
-			<name>Curtis Rueden</name>
-			<url>https://imagej.net/User:Rueden</url>
+			<id>sjwest</id>
+			<name>Steven J. West</name>
+			<url>https://www.thenaturalobserver.co.uk/</url>
 			<roles>
 				<role>lead</role>
 				<role>developer</role>
@@ -45,36 +65,15 @@
 				<role>maintainer</role>
 			</roles>
 		</developer>
+
 	</developers>
+
 	<contributors>
 		<contributor>
-			<name>Johannes Schindelin</name>
-			<url>https://imagej.net/User:Schindelin</url>
-			<roles><role>founder</role></roles>
-			<properties><id>dscho</id></properties>
-		</contributor>
-		<contributor>
-			<name>Olivier Burri</name>
-			<url>https://imagej.net/User:Oburri</url>
-			<properties><id>lacan</id></properties>
-		</contributor>
-		<contributor>
-			<name>Mark Hiner</name>
-			<url>https://imagej.net/User:Hinerm</url>
-			<properties><id>hinerm</id></properties>
-		</contributor>
-		<contributor>
-			<name>Jules Maselbas</name>
-		</contributor>
-		<contributor>
-			<name>Kota Miura</name>
-			<url>https://imagej.net/User:Miura</url>
-			<properties><id>miura</id></properties>
-		</contributor>
-		<contributor>
-			<name>Yili Zhao</name>
-			<url>https://imagej.net/User:Panovr</url>
-			<properties><id>panovr</id></properties>
+			<name>Steven J. West</name>
+			<url>https://www.thenaturalobserver.co.uk/</url>
+			<roles><role>contributor</role></roles>
+			<properties><id>sjwest</id></properties>
 		</contributor>
 	</contributors>
 
@@ -86,24 +85,25 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:git:git://github.com/imagej/example-legacy-plugin</connection>
-		<developerConnection>scm:git:git@github.com:imagej/example-legacy-plugin</developerConnection>
+		<connection>scm:git:git://github.com/stevenjwest/Multi_OTSU_Segmentation</connection>
+		<developerConnection>scm:git:git@github.com:stevenjwest/Multi_OTSU_Segmentation</developerConnection>
 		<tag>HEAD</tag>
-		<url>https://github.com/imagej/example-legacy-plugin</url>
+		<url>https://github.com/stevenjwest/Multi_OTSU_Segmentation</url>
 	</scm>
+
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/imagej/example-legacy-plugin/issues</url>
+		<url>https://github.com/stevenjwest/Multi_OTSU_Segmentation/issues</url>
 	</issueManagement>
+
 	<ciManagement>
 		<system>None</system>
 	</ciManagement>
 
 	<properties>
-		<package-name>com.mycompany.imagej</package-name>
-		<main-class>com.mycompany.imagej.Process_Pixels</main-class>
+		<package-name>thenaturalobserver.multi_otsu_segmentation</package-name>
 		<license.licenseName>bsd_2</license.licenseName>
-		<license.copyrightOwners>My Company, Inc.</license.copyrightOwners>
+		<license.copyrightOwners>Yasunari Tosa, Steven J. West</license.copyrightOwners>
 	</properties>
 
 	<dependencies>
