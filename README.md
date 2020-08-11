@@ -1,7 +1,7 @@
 # Multi-OTSU Segmentation
 
 
-**A pre-compiled JAR file of this plugin can be downloaded from the [wiki](https://github.com/stevenjwest/Multi-OTSU-Segmentation/wiki).**
+**A pre-compiled JAR file of this plugin can be downloaded from the [wiki](https://github.com/stevenjwest/Multi_OTSU_Segmentation/wiki).**
 
 
 This is an updated version of the Multi-OTSU Threshold plugin by *Yasunari Tosa*.  It provides an implementation of multi-OTSU segmentation in ImageJ:
