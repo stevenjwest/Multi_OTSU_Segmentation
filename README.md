@@ -63,7 +63,7 @@ mvn clean package # cleans any target/ directory, then moves through all maven g
 ## Why re-implement an existing plugin?
 
 
-Although Mutli-OTSU is an excellent plugin, unfortunately it generates a messy output, including:
+Although Multi-OTSU is an excellent plugin, unfortunately it generates a messy output, including:
 
 
 * An image of the histogram
