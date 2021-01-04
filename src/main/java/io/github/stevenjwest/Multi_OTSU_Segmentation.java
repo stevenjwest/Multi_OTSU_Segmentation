@@ -49,6 +49,7 @@ public class Multi_OTSU_Segmentation implements PlugInFilter {
     int MLEVEL = 3; // 3 level
     int bkgroundLevel = 0;
     boolean stack = true;
+    boolean log_segmentation = false;
 
     GenericDialog gd = new GenericDialog("Select numLevels");
     String [] items= { "2", "3", "4", "5", };
@@ -56,6 +57,7 @@ public class Multi_OTSU_Segmentation implements PlugInFilter {
     String [] itemsBkground= { "0", "1", "2", "3", };
     gd.addChoice("Background Selection", itemsBkground, "0");
     gd.addCheckbox("stack", true);
+    gd.addCheckbox("log", false);
     gd.showDialog();
     if (gd.wasCanceled())
       return;
@@ -63,6 +65,7 @@ public class Multi_OTSU_Segmentation implements PlugInFilter {
     MLEVEL = gd.getNextChoiceIndex() + 2;
     bkgroundLevel = gd.getNextChoiceIndex();
     stack = gd.getNextBoolean();
+    log_segmentation = gd.getNextBoolean();
     //IJ.log("numLevels set to " + MLEVEL);
 
     int [] threshold = new int[MLEVEL]; // threshold
@@ -101,12 +104,15 @@ public class Multi_OTSU_Segmentation implements PlugInFilter {
     // now M level loop   MLEVEL dependent term
     ////////////////////////////////////////////////////////
     float maxSig = findMaxSigma(MLEVEL, H, threshold);
-    String msg = "thresholds: ";;
-    for (int i=0; i < MLEVEL; ++i)
-      msg += i + "=" + threshold[i] + ", ";
-    msg += " maxSig = " + maxSig;
-    IJ.log(msg);
-    IJ.log("histogram 0: "+histogram[0] + " histogram 10: "+histogram[10]);
+
+    if(log_segmentation == true) {
+    	String msg = "thresholds: ";;
+    	for (int i=0; i < MLEVEL; ++i)
+    		msg += i + "=" + threshold[i] + ", ";
+    	msg += " maxSig = " + maxSig;
+    	IJ.log(msg);
+    	IJ.log("histogram 0: "+histogram[0] + " histogram 10: "+histogram[10]);
+    }
 
     ///////////////////////////////////////////////////////////////
     // show regions works for any MLEVEL
